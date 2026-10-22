@@ -1,0 +1,12 @@
+packages:
+  - apps/*
+  - packages/*
+verifyDepsBeforeRun: false
+allowBuilds:
+  '@parcel/watcher': set this to true or false
+  '@swc/core': set this to true or false
+onlyBuiltDependencies:
+  - sharp
+  - esbuild
+  - '@parcel/watcher'
+  - '@swc/core'

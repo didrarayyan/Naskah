@@ -23,7 +23,8 @@ test('AI settings validate, save, simulate, remove and keep keys out of persiste
   await save.click();
   for (const field of [model, endpoint, key])
     await expect(field).toHaveAttribute('aria-invalid', 'true');
-  await settings.getByLabel('Penyedia AI', { exact: true }).selectOption('custom');
+  await settings.getByRole('combobox', { name: 'Penyedia AI', exact: true }).click();
+  await page.getByRole('option', { name: 'Kustom (kompatibel OpenAI)', exact: true }).click();
   await model.fill('example-model');
   await endpoint.fill('https://example.com/v1');
   const testKey = 'example-key-browser-tests-only';
@@ -96,7 +97,8 @@ test('AI settings work in English, retain the key across navigation, and clear i
   page,
 }) => {
   await page.goto('/settings');
-  await page.getByRole('combobox', { name: 'Bahasa antarmuka', exact: true }).selectOption('en');
+  await page.getByRole('combobox', { name: 'Bahasa antarmuka', exact: true }).click();
+  await page.getByRole('option', { name: 'English', exact: true }).click();
   const settings = page.getByRole('region', { name: 'AI connection' });
   await settings.getByLabel('AI API key', { exact: true }).fill('example-key-navigation-only');
   await settings.getByRole('button', { name: 'Save AI settings', exact: true }).click();

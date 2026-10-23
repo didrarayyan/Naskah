@@ -15,6 +15,7 @@
     "@radix-ui/react-alert-dialog": "latest",
     "@radix-ui/react-dialog": "latest",
     "@radix-ui/react-dropdown-menu": "latest",
+    "@radix-ui/react-select": "^2.4.1",
     "@radix-ui/react-switch": "latest",
     "@radix-ui/react-tabs": "latest",
     "@tailwindcss/postcss": "latest",

@@ -577,23 +577,77 @@ kbd {
 .select-wrap {
   position: relative;
   display: inline-flex;
+  min-width: 0;
 }
-.select-wrap select {
+.select-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
   height: 32px;
-  padding: 0 30px 0 10px;
-  appearance: none;
+  padding: 0 10px;
   font-size: 12px;
-  background: transparent;
-  border-color: var(--line);
+  color: var(--ink);
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: 4px;
 }
-.select-wrap > svg {
-  position: absolute;
-  right: 9px;
-  top: 9px;
+.select-trigger > svg {
   width: 13px;
   height: 13px;
   color: var(--ink-3);
   pointer-events: none;
+}
+.select-menu {
+  z-index: 110;
+  min-width: var(--radix-select-trigger-width);
+  max-width: calc(100vw - 32px);
+  max-height: min(320px, var(--radix-select-content-available-height));
+  overflow: hidden;
+  color: var(--ink);
+  background: var(--surface-2);
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  box-shadow: var(--dialog-shadow);
+  font-size: 13px;
+}
+.select-viewport {
+  padding: 5px;
+}
+.select-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 7px 34px 7px 10px;
+  border-radius: 4px;
+  color: var(--ink);
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+}
+.select-option[data-highlighted] {
+  color: var(--ink);
+  background: var(--surface-3);
+}
+.select-indicator {
+  position: absolute;
+  right: 9px;
+  display: flex;
+  color: var(--gold-text);
+}
+.select-indicator svg,
+.select-scroll svg {
+  width: 15px;
+  height: 15px;
+}
+.select-scroll {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  color: var(--ink-2);
 }
 .filter-icon {
   width: 14px;
@@ -2160,7 +2214,7 @@ tbody tr:hover {
 .settings-section .select-wrap {
   min-width: 160px;
 }
-.settings-section .select-wrap select {
+.settings-section .select-trigger {
   width: 100%;
   height: 36px;
 }
@@ -2843,7 +2897,7 @@ tbody tr:hover {
   .settings-section .select-wrap {
     min-width: 125px;
   }
-  .settings-section .select-wrap select {
+  .settings-section .select-trigger {
     font-size: 12px;
   }
   .print-document {

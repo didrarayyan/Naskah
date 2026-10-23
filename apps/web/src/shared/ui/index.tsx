@@ -1,8 +1,9 @@
 'use client';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Dropdown from '@radix-ui/react-dropdown-menu';
+import * as SelectPrimitive from '@radix-ui/react-select';
 import * as Switch from '@radix-ui/react-switch';
-import { X, MoreHorizontal, Check, ChevronDown } from 'lucide-react';
+import { X, MoreHorizontal, Check, ChevronDown, ChevronUp } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import type { ReactNode, ButtonHTMLAttributes } from 'react';
 export function Button({
@@ -147,14 +148,43 @@ export function Select({
 }) {
   return (
     <span className="select-wrap">
-      <select id={id} aria-label={label} value={value} onChange={(e) => onChange(e.target.value)}>
-        {options.map((o) => (
-          <option key={o.value} value={o.value}>
-            {o.label}
-          </option>
-        ))}
-      </select>
-      <ChevronDown />
+      <SelectPrimitive.Root value={value} onValueChange={onChange}>
+        <SelectPrimitive.Trigger id={id} className="select-trigger" aria-label={label}>
+          <SelectPrimitive.Value />
+          <SelectPrimitive.Icon asChild>
+            <ChevronDown />
+          </SelectPrimitive.Icon>
+        </SelectPrimitive.Trigger>
+        <SelectPrimitive.Portal>
+          <SelectPrimitive.Content
+            className="select-menu"
+            position="popper"
+            sideOffset={6}
+            collisionPadding={16}
+          >
+            <SelectPrimitive.ScrollUpButton className="select-scroll">
+              <ChevronUp />
+            </SelectPrimitive.ScrollUpButton>
+            <SelectPrimitive.Viewport className="select-viewport">
+              {options.map((option) => (
+                <SelectPrimitive.Item
+                  key={option.value}
+                  value={option.value}
+                  className="select-option"
+                >
+                  <SelectPrimitive.ItemText>{option.label}</SelectPrimitive.ItemText>
+                  <SelectPrimitive.ItemIndicator className="select-indicator">
+                    <Check />
+                  </SelectPrimitive.ItemIndicator>
+                </SelectPrimitive.Item>
+              ))}
+            </SelectPrimitive.Viewport>
+            <SelectPrimitive.ScrollDownButton className="select-scroll">
+              <ChevronDown />
+            </SelectPrimitive.ScrollDownButton>
+          </SelectPrimitive.Content>
+        </SelectPrimitive.Portal>
+      </SelectPrimitive.Root>
     </span>
   );
 }

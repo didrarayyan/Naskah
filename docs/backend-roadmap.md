@@ -4,6 +4,25 @@ Phase 1 starts no services and makes no calls to n8n, Supabase or DeepSeek.
 Never put `DEEPSEEK_API_KEY`, `N8N_WEBHOOK_SECRET`, or the service-role key in a
 public environment variable. Existing HTTP adapters throw NotImplementedError.
 
+The Settings page now includes an AI connection form behind `AiConnectionService`.
+Phase 1 saves only versioned provider/model/base URL configuration in IndexedDB;
+the key remains in tab memory until refresh, removal, or reset. Its connection
+test is explicitly simulated and makes no network request. Generation and
+revision continue to use fixtures regardless of these settings.
+
+For Phase 2, implement authenticated, owner-scoped `GET/PUT/DELETE /api/ai/settings`
+and `POST /api/ai/test-connection` using the shared AI schemas. All currently return
+501 (invalid PUT bodies return 400). PUT accepts an optional write-only `apiKey`;
+GET/PUT/DELETE return only `AiConnectionSnapshot`, never the credential. DELETE
+removes only the credential. The test endpoint uses the saved server credential
+and returns `AiConnectionTest` with mode `live` only after provider verification.
+Store keys in encrypted server storage or a secret manager, redact them from
+logs, and validate allowed provider destinations server-side to prevent SSRF.
+Keep provider calls on the server, authorize every operation, and apply rate
+limits/timeouts. Replace only the HTTP adapter methods; UI features use the port.
+Provider/model defaults are editable placeholders from the project brief and
+must be checked against the provider's available models when wiring live calls.
+
 1. **Docker and n8n.** Review `infra/docker-compose.yml`, pin an image version,
    set secrets, and bring up the orchestrator. Add authenticated server-to-server
    webhook request handling. Acceptance: health endpoint, invalid signatures

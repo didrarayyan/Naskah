@@ -1,4 +1,5 @@
 import { z } from 'zod';
+export * from './ai-connection';
 export const ProjectStatus = z.enum([
   'draft_input',
   'generating',

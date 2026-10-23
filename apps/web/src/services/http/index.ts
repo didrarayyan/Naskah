@@ -1,20 +1,29 @@
 import type { Services } from '../ports';
 import { NotImplementedError } from '../ports';
-import { GenerateInputSchema, ReviseInputSchema } from '@naskah/contracts';
+import { GenerateInputSchema, ReviseInputSchema, AiConnectionSaveSchema } from '@naskah/contracts';
 export const endpoints = {
   generate: '/webhook/generate-srs',
   revise: '/webhook/revise-srs',
   parser: '/api/parse-pdf',
   compiler: '/api/compile-document',
   callback: '/api/webhooks/srs-ready',
+  aiSettings: '/api/ai/settings',
+  aiConnectionTest: '/api/ai/test-connection',
 };
 export const buildGenerateRequest = (input: unknown) => GenerateInputSchema.parse(input);
 export const buildRevisionRequest = (input: unknown) => ReviseInputSchema.parse(input);
+export const buildAiSettingsRequest = (input: unknown) => AiConnectionSaveSchema.parse(input);
 const unavailable = async () => {
   throw new NotImplementedError();
 };
 export function createHttpServices(): Services {
   return {
+    aiConnection: {
+      getSettings: unavailable,
+      saveSettings: unavailable,
+      removeApiKey: unavailable,
+      testConnection: unavailable,
+    },
     projects: {
       list: unavailable,
       get: unavailable,

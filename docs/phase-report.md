@@ -19,8 +19,19 @@ Production: `pnpm build`, `pnpm start`.
 
 ## Verification
 
+AI Settings follow-up (23 October 2026): `/settings` now has provider, model,
+HTTPS endpoint and a masked API key input with show/hide, save, remove and a
+simulated connection test. Public configuration persists in IndexedDB; keys
+stay in tab memory and disappear on refresh. Shared schemas, a dedicated service
+port and explicit 501 routes prepare the later backend integration. Six added
+unit tests cover credential isolation, validation, reset, failed writes and the
+API placeholders. Browser coverage includes both locales, light/dark themes,
+desktop/mobile, refresh, navigation and destination changes. Four screenshots
+are named `*-ai-settings-{desktop,mobile}.png`.
+
 - TypeScript and ESLint pass.
-- 23 Vitest tests pass, including malformed-storage recovery, PDF/text cleaning,
+- 29 Vitest tests pass, including AI credential isolation and configuration,
+  malformed-storage recovery, PDF/text cleaning,
   shared contracts, requirement IDs, structure checking, SUS polarity, revision
   isolation, locked/stale proposals, ordered generation, failure recovery and
   actual DOCX ZIP contents/margins.

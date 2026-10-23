@@ -13,6 +13,9 @@ import type {
   SusResponse,
   RougeResult,
   StatisticalResult,
+  AiConnectionSave,
+  AiConnectionSnapshot,
+  AiConnectionTest,
 } from '@naskah/contracts';
 import type { ExampleRepository } from './examples';
 export class PortError extends Error {
@@ -112,11 +115,18 @@ export interface AuthPort {
 export interface TelemetryPort {
   track(event: string): Promise<void>;
 }
+export interface AiConnectionService {
+  getSettings(): Promise<AiConnectionSnapshot>;
+  saveSettings(input: AiConnectionSave): Promise<AiConnectionSnapshot>;
+  removeApiKey(): Promise<AiConnectionSnapshot>;
+  testConnection(): Promise<AiConnectionTest>;
+}
 export interface SimulationConfig {
   speed: 'instant' | 'normal' | 'slow';
   failure: 'none' | 'retrieval' | 'chapter3' | 'guardrail' | 'revision';
 }
 export interface Services {
+  aiConnection: AiConnectionService;
   projects: ProjectRepository;
   documents: DocumentRepository;
   generation: GenerationService;

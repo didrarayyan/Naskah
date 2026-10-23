@@ -2170,6 +2170,42 @@ tbody tr:hover {
   font-family: var(--font-mono), monospace;
   font-size: 11px;
 }
+.ai-settings-body {
+  min-width: 0;
+}
+.ai-mode-note {
+  border-left: 2px solid var(--line-strong);
+  padding-left: 14px;
+  margin-bottom: 24px;
+}
+.ai-settings-fields {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.ai-key-input {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+.ai-key-input input {
+  flex: 1;
+  width: 0;
+}
+.ai-settings-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+.ai-key-status {
+  color: var(--ink-2);
+  font-size: 13px;
+}
+.ai-form-message {
+  margin-top: 12px;
+}
 .call-log > p {
   border-bottom: 1px solid var(--line);
   padding: 8px;

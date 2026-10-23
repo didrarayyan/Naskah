@@ -133,11 +133,13 @@ export function CheckMark() {
   );
 }
 export function Select({
+  id,
   label,
   value,
   onChange,
   options,
 }: {
+  id?: string;
   label: string;
   value: string;
   onChange: (value: string) => void;
@@ -145,7 +147,7 @@ export function Select({
 }) {
   return (
     <span className="select-wrap">
-      <select aria-label={label} value={value} onChange={(e) => onChange(e.target.value)}>
+      <select id={id} aria-label={label} value={value} onChange={(e) => onChange(e.target.value)}>
         {options.map((o) => (
           <option key={o.value} value={o.value}>
             {o.label}

@@ -26,6 +26,7 @@ import { persistence } from './persistence';
 import { humanBaseline } from './fixtures/baseline';
 import { parser } from './parser';
 import { createCompiler } from './compiler';
+import { createMockAiConnection } from './ai-connection';
 import { nextId } from '@/entities/requirement/parsing';
 import { checkStructure } from '@/entities/evaluation/structure';
 interface Database {
@@ -105,6 +106,7 @@ function reserveRequirementId(sessionId: string, markdown: string) {
   return id;
 }
 export function createMockServices(): Services {
+  const aiConnection = createMockAiConnection(persistence);
   const calls: Services['calls'] = [];
   const track = (method: string) => {
     calls.unshift({ at: new Date().toISOString(), method });
@@ -443,6 +445,7 @@ export function createMockServices(): Services {
     },
   };
   const services: Services = {
+    aiConnection,
     projects,
     documents,
     generation,
@@ -480,6 +483,7 @@ export function createMockServices(): Services {
     },
     telemetry: { async track() {} },
     async reset() {
+      await aiConnection.reset();
       reservedRequirementIds.clear();
       for (const handle of active.values()) handle.cancel();
       await queue.catch(() => {});

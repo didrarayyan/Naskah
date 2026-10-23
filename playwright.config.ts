@@ -7,7 +7,7 @@ export default defineConfig({
   fullyParallel: false,
   reporter: 'list',
   use: {
-    baseURL: 'http://127.0.0.1:3000',
+    baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://127.0.0.1:3000',
     channel: process.env.PLAYWRIGHT_CHANNEL || 'msedge',
     headless: true,
     viewport: { width: 1440, height: 1000 },

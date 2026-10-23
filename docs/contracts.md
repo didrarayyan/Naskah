@@ -4,6 +4,14 @@ Source of truth: `packages/contracts/src/index.ts`. Schemas infer all TypeScript
 entities. Unknown/invalid inputs return 400 at API boundaries; valid requests
 reach deliberate 501 placeholders in Phase 1.
 
+AI connection schemas live in `packages/contracts/src/ai-connection.ts` and are
+re-exported from the package entry. `AiConnectionConfigSchema` validates provider,
+model and HTTPS base URL; `AiConnectionSaveSchema` adds an optional write-only key.
+`AiConnectionSnapshotSchema` exposes configuration, `hasApiKey`, and credential
+storage (`memory` or `server`), never the key. `AiConnectionTestSchema` distinguishes
+mock/simulated results from live/connected results. Generation and revision
+payloads remain unchanged: credentials are resolved behind the service boundary.
+
 | Schema                 | Fields / role                                                                                                |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------ |
 | ProjectSchema          | UUID, ownerId, title, domain, version, status, dates, sessionId, rawText                                     |

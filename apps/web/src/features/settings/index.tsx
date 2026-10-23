@@ -8,6 +8,7 @@ import { useServices, useToast } from '@/shared/lib/providers';
 import { appEvents } from '@/shared/lib/events';
 import { flags } from '@/shared/config/flags';
 import { Button, Toggle, Select } from '@/shared/ui';
+import { AiConnectionSettings } from './ai-connection';
 export function Settings() {
   const t = useTranslations();
   const { theme, setTheme } = useTheme();
@@ -20,9 +21,11 @@ export function Settings() {
   const services = useServices();
   const toast = useToast();
   const [error, setError] = useState('');
+  const [resetVersion, setResetVersion] = useState(0);
   async function reset() {
     try {
       await services.reset();
+      setResetVersion((value) => value + 1);
       sessionStorage.removeItem('naskah-intake');
       toast(t('saved'));
     } catch {
@@ -74,6 +77,7 @@ export function Settings() {
           </div>
         </div>
       </section>
+      <AiConnectionSettings key={resetVersion} />
       <section className="settings-section">
         <h2>{t('research')}</h2>
         <div className="setting-row">
